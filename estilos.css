@@ -1,1 +1,235 @@
+:root {
+    /* Paleta de Lilas y Morados */
+    --bg-page: #fdfbff;          /* Blanco lila muy suave */
+    --primary: #7b1fa2;          /* Morado principal */
+    --primary-dark: #4a148c;     /* Morado oscuro (encabezados) */
+    --accent: #e1bee7;           /* Lila claro (bordes/fondos suaves) */
+    --secondary: #9c27b0;        /* Morado secundario */
+    --text-main: #333;
+    --card-bg: #ffffff;
+    --locked-bg: #f3e5f5;        /* Gris-lila para bloqueados */
+    --locked-text: #8e8e8e;
+}
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Evita scroll en el body, lo manejamos en el wrapper */
+}
+
+/* --- Header --- */
+header {
+    background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(123, 31, 162, 0.2);
+    flex-shrink: 0;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+header p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.btn-reset {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid white;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-reset:hover {
+    background: white;
+    color: var(--primary);
+}
+
+/* --- Leyenda --- */
+.leyenda {
+    padding: 10px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    border-bottom: 1px solid var(--accent);
+    font-size: 0.85rem;
+}
+
+.badge-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot.available { border: 2px solid var(--primary); background: white; }
+.dot.approved { background: var(--primary); }
+.dot.locked { background: #dcdcdc; }
+
+/* --- Malla Container --- */
+.malla-wrapper {
+    flex-grow: 1;
+    overflow-x: auto; /* Scroll horizontal */
+    overflow-y: hidden;
+    padding: 20px;
+    background-color: #f8f0fb; /* Fondo muy suave */
+}
+
+.malla-container {
+    display: flex;
+    gap: 15px;
+    height: 100%;
+    width: max-content; /* Permite que crezca horizontalmente */
+}
+
+.columna-semestre {
+    width: 190px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.semestre-header {
+    background-color: var(--primary);
+    color: white;
+    text-align: center;
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* --- Tarjetas de Ramos --- */
+.ramo {
+    background-color: var(--card-bg);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 60px;
+    position: relative;
+    user-select: none;
+}
+
+.ramo:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary);
+    box-shadow: 0 4px 8px rgba(123, 31, 162, 0.15);
+}
+
+/* Estados de Ramos */
+.ramo.approved {
+    background-color: var(--primary-dark);
+    color: white;
+    text-decoration: line-through;
+    opacity: 0.85;
+    border-color: var(--primary-dark);
+}
+
+.ramo.locked {
+    background-color: var(--locked-bg);
+    color: var(--locked-text);
+    border-color: #e0e0e0;
+    cursor: not-allowed;
+}
+
+.ramo.locked::after {
+    content: "🔒";
+    position: absolute;
+    bottom: 2px;
+    right: 5px;
+    font-size: 10px;
+    opacity: 0.5;
+}
+
+.ramo.locked:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* --- Modal --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(2px);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 12px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    border: 1px solid var(--accent);
+}
+
+.close-btn {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-main);
+}
+
+.modal-title {
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+}
+
+#lista-requisitos {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.btn-ok {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
