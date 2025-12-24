@@ -1,1 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malla Curricular Medicina</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
 
+    <header>
+        <div class="header-content">
+            <h1>Malla Curricular Medicina</h1>
+            <p>Planifica tu avance académico</p>
+        </div>
+        <div class="header-controls">
+            <button onclick="resetMalla()" class="btn-reset">Reiniciar Progreso</button>
+        </div>
+    </header>
+
+    <div class="leyenda">
+        <div class="badge-group">
+            <span class="dot available"></span> Disponible
+        </div>
+        <div class="badge-group">
+            <span class="dot approved"></span> Aprobado
+        </div>
+        <div class="badge-group">
+            <span class="dot locked"></span> Bloqueado
+        </div>
+    </div>
+
+    <div class="malla-wrapper">
+        <div id="malla-container" class="malla-container">
+            </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 class="modal-title">Asignatura Bloqueada</h3>
+            <p>Para desbloquear este ramo debes aprobar:</p>
+            <ul id="lista-requisitos"></ul>
+            <button class="btn-ok">Entendido</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
